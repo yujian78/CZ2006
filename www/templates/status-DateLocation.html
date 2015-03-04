@@ -1,0 +1,43 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Choose Date & Location">
+  <ion-content class="padding">
+  <div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Location
+    </div>
+    <select>
+      <option>Jurong Point</option>
+      <option selected>Jurong East</option>
+      <option>Changi</option>
+      <option>Cityhall</option>
+      <option>Bishan</option>
+    </select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Date
+    </div>
+    <select>
+      <option>March  5th</option>
+      <option selected>March  6th</option>
+      <option>March  7th</option>
+      <option>March  8th</option>
+      <option>March  9th</option>
+      <option>March 10th</option>
+      <option>March 11th</option>
+    </select>
+  </label>
+  </div>
+
+  <button class="button button-block button-calm">
+      Next
+    </button>
+
+  </ion-content>
+</ion-view>

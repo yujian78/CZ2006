@@ -9,13 +9,14 @@ angular.module('starter.controllers', [])
 
 
 .controller('appotCategoryCtrl', function($scope) {
-  $scope.click = function(lad) {
-    window.location = "#/tab/status/category/" + lad;
+  $scope.click = function(cat) {
+    window.localStorage.category = cat;
+    window.location = "#/tab/status/category/lad";
   }
 })
 
 .controller('DateLocationCtrl', function($scope, $stateParams) {
-  alert($stateParams.lad);
+  alert(window.localStorage.category);
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
