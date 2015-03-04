@@ -1,6 +1,16 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope) {
+  $scope.new_appointment = function() {
+    window.location = "#/tab/status/category"
+  }
+})
+
+
+
+.controller('appotCategoryCtrl', function($scope) {
+  
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
