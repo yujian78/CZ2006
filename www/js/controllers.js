@@ -9,7 +9,13 @@ angular.module('starter.controllers', [])
 
 
 .controller('appotCategoryCtrl', function($scope) {
-  
+  $scope.click = function(lad) {
+    window.location = "#/tab/status/category/" + lad;
+  }
+})
+
+.controller('DateLocationCtrl', function($scope, $stateParams) {
+  alert($stateParams.lad);
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {

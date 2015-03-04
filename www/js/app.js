@@ -56,6 +56,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+      .state('tab.status-category-lad', {
+      url: '/status/category/:lad',
+      views: {
+        'tab-status': {
+          templateUrl: 'templates/status-DateLocation.html',
+          controller: 'DateLocationCtrl'
+        }
+      }
+    })
 
   .state('tab.chats', {
       url: '/chats',
