@@ -6,8 +6,6 @@ angular.module('starter.controllers', [])
   }
 })
 
-
-
 .controller('appotCategoryCtrl', function($scope) {
   $scope.click = function(cat) {
     window.localStorage.category = cat;
@@ -15,8 +13,16 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('DateLocationCtrl', function($scope, $stateParams) {
-  alert(window.localStorage.category);
+.controller('DateLocationCtrl', function($scope) {
+  $scope.click = function() {
+    window.location = "#/tab/status/category/lad/appointment";
+    window.localStorage.location = document.getElementById("location").value;
+    window.localStorage.date = document.getElementById("date").value;
+  }
+})
+
+.controller('AppointmentCtrl', function($scope) {
+  // window.location = "#/tab/status/category/lad";
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
