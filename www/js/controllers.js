@@ -43,6 +43,19 @@ angular.module('starter.controllers', [])
 .controller('AppointmentSpecificCtrl', function($scope) {
   doctor = JSON.parse(window.localStorage.doctor)
   $scope.name = doctor.name
+  $scope.img = doctor.img
+  $scope.profile = doctor.profile
+
+  $scope.detail = "Dr Marty Mcfly obtained her Master’s degree in Internal Medicine from the National University of Singapore and membership of the Royal College of Physicians (UK) in 2002. She received her specialist accreditation in Respiratory Medicine in Singapore in 2005 and was awarded the European Diploma in Intensive Care by the European Society of Intensive Care Medicine in 2006. She completed further training in Advanced Pulmonology and Multi-Disciplinary Intensive Care Medicine under a Singapore Ministry of Health scholarship at the Cleveland Clinic in Ohio, USA in 2009 and was elected a Fellow Physician of the American College of Chest Physicians."
+  times = doctor.times;
+  $scope.timerows = Array(Math.floor((times.length + 2) / 3));
+  for(var i=0; i<$scope.timerows.length; i++) {
+    $scope.timerows[i] = Array();
+  }
+  for(var i=0; i < times.length; i++) {
+    $scope.timerows[Math.floor(i/3)].push(times[i]);
+  }
+  console.log($scope.timerows);
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
