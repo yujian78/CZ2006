@@ -28,11 +28,11 @@ angular.module('starter.controllers', [])
 
 .controller('AppointmentCtrl', function($scope) {
   $scope.doctors = [{img: "img/doc1.png", name: "Marty Mcfly", profile: "General Practitioner, Women Health", 
-  times: ["8:30AM", "9:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
+  times: ["08:30AM", "09:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
   {img: "img/doc2.png", name: "Mary Fung", profile: "General Practitioner, Dental", 
-  times: ["9:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
+  times: ["09:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
   {img: "img/doc3.png", name: "Tom Hagons", profile: "General Practitioner", 
-  times: ["8:30AM", "11:30AM", "12:30PM", "13:30PM"]}]
+  times: ["08:30AM", "11:30AM", "12:30PM", "13:30PM"]}]
   $scope.goto = function(doctor) {
     window.localStorage.doctor = JSON.stringify(doctor)
     console.log(doctor)
@@ -55,7 +55,6 @@ angular.module('starter.controllers', [])
   for(var i=0; i < times.length; i++) {
     $scope.timerows[Math.floor(i/3)].push(times[i]);
   }
-  console.log($scope.timerows);
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
