@@ -23,6 +23,22 @@ angular.module('starter.controllers', [])
 
 .controller('AppointmentCtrl', function($scope) {
   // window.location = "#/tab/status/category/lad";
+  $scope.doctors = [{img: "img/doc1.png", name: "Marty Mcfly", profile: "General Practitioner, Women Health", 
+  times: ["8:30AM", "9:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
+  {img: "img/doc2.png", name: "Mary Fung", profile: "General Practitioner, Dental", 
+  times: ["9:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
+  {img: "img/doc3.png", name: "Tom Hagons", profile: "General Practitioner", 
+  times: ["8:30AM", "11:30AM", "12:30PM", "13:30PM"]}]
+  $scope.goto = function(doctor) {
+    window.localStorage.doctor = JSON.stringify(doctor)
+    console.log(doctor)
+    window.location = "#/tab/status/category/lad/appointment/specific"
+  }
+})
+
+.controller('AppointmentSpecificCtrl', function($scope) {
+  doctor = JSON.parse(window.localStorage.doctor)
+  $scope.name = doctor.name
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {

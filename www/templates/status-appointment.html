@@ -6,7 +6,13 @@
 -->
 <ion-view view-title="Make Appointment">
   <ion-content class="padding">
-  
-
+  	<div class="list">
+    	<a class="item item-thumbnail-left" ng-repeat="doctor in doctors" ng-click="goto(doctor)">
+      		<img src="{{ doctor.img }}">
+      		<h2>{{ doctor.name }}</h2>
+      		<p>{{ doctor.profile }}</p>
+      		<p><span ng-repeat="time in doctor.times" >{{ time }}&nbsp</span></p>
+    	</a>
+	</div>
   </ion-content>
 </ion-view>
