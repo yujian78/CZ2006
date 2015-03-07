@@ -12,27 +12,16 @@
       Location
     </div>
     <select id="location">
-      <option selected value="0"> </option>
-      <option value="1">Jurong Point</option>
-      <option value="2">Jurong East</option>
-      <option value="3">Changi</option>
-      <option value="4">Cityhall</option>
-      <option value="5">Bishan</option>
+      <option ng-repeat="location in locations" value="{{ location.id }}">{{ location.name }}</option>
     </select>
   </label>
   <label class="item item-input item-select">
     <div class="input-label">
       Date
     </div>
+
     <select id="date">
-      <option selected value="0"> </option>
-      <option value="1">March  5th</option>
-      <option value="2">March  6th</option>
-      <option value="3">March  7th</option>
-      <option value="4">March  8th</option>
-      <option value="5">March  9th</option>
-      <option value="6">March 10th</option>
-      <option value="7">March 11th</option>
+      <option ng-repeat="date in dates" {{ date.id }}>{{ date.name }}</option>
     </select>
   </label>
   </div>

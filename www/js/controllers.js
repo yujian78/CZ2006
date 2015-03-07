@@ -14,6 +14,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DateLocationCtrl', function($scope) {
+  $scope.locations = [{id:"none",name: " "}, {id:"jurong_point", name: "Jurong Point"}, {id:"bishan", name: "Bishan"}, 
+  {id:"changi_airport", name: "Changi Airport"}]
+  $scope.dates = [{id:"none",name: " "}, {id:"03-08", name: "March 8th"}, {id:"03-09", name: "March 9th"}, 
+  {id:"03-10", name: "March 10th"}]
+  
   $scope.click = function() {
     window.location = "#/tab/status/category/lad/appointment";
     window.localStorage.location = document.getElementById("location").value;
@@ -22,7 +27,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AppointmentCtrl', function($scope) {
-  // window.location = "#/tab/status/category/lad";
   $scope.doctors = [{img: "img/doc1.png", name: "Marty Mcfly", profile: "General Practitioner, Women Health", 
   times: ["8:30AM", "9:30AM", "10:30AM", "11:30AM", "12:30PM", "13:30PM"]}, 
   {img: "img/doc2.png", name: "Mary Fung", profile: "General Practitioner, Dental", 
