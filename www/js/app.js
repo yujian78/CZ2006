@@ -60,33 +60,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/status/category/lad',
       views: {
         'tab-status': {
-          templateUrl: 'templates/status-DateLocation.html',
+          templateUrl: 'templates/status-datelocation.html',
           controller: 'DateLocationCtrl'
         }
       }
     })
-      .state('tab.status-appointment', {
-      url: '/status/category/lad/appointment',
+      .state('tab.status-doctors', {
+      url: '/status/category/lad/doctors',
       views: {
         'tab-status': {
-          templateUrl: 'templates/status-appointment.html',
-          controller: 'AppointmentCtrl'
+          templateUrl: 'templates/status-doctors.html',
+          controller: 'DoctorsCtrl'
         }
       }
     })
 
-      .state('tab.status-appointment-specific', {
-      url: '/status/category/lad/appointment/specific',
+      .state('tab.status-doctors-specific', {
+      url: '/status/category/lad/doctors/specific',
       views: {
         'tab-status': {
-          templateUrl: 'templates/status-appointment-specific.html',
-          controller: 'AppointmentSpecificCtrl'
+          templateUrl: 'templates/status-doctors-specific.html',
+          controller: 'DoctorsSpecificCtrl'
         }
       }
     })
 
       .state('tab.status-confirmation', {
-      url: '/status/category/lad/appointment/specific/confirmation',
+      url: '/status/confirmation',
       views: {
         'tab-status': {
           templateUrl: 'templates/status-confirmation.html',
@@ -95,44 +95,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.appointments', {
+      url: '/appointments',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-appointments': {
+          templateUrl: 'templates/tab-appointments.html',
+          controller: 'AppointmentsCtrl'
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-
-  .state('tab.friends', {
-      url: '/friends',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
-        }
-      }
-    })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
-        }
-      }
-    })
-
+    
   .state('tab.account', {
     url: '/account',
     views: {

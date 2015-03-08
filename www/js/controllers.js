@@ -21,29 +21,29 @@ angular.module('starter.controllers', [])
   {id:"2015-03-10", name: "March 10th"}]
   
   $scope.click = function() {
-    window.location = "#/tab/status/category/lad/appointment";
+    window.location = "#/tab/status/category/lad/doctors";
     window.localStorage.location = document.getElementById("location").value;
     window.localStorage.date = document.getElementById("date").value;
   }
 })
 
-.controller('AppointmentCtrl', function($scope) {
+.controller('DoctorsCtrl', function($scope) {
   $scope.doctors = [{img: "img/doc1.png", name: "Marty Mcfly", profile: "General Practitioner, Women Health", 
   times: ["08:30", "09:30", "10:30", "11:30", "12:30", "13:30"]}, 
   {img: "img/doc2.png", name: "Mary Fung", profile: "General Practitioner, Dental", 
   times: ["09:30", "10:30", "11:30", "12:30", "13:30"]}, 
   {img: "img/doc3.png", name: "Tom Hagons", profile: "General Practitioner", 
   times: ["08:30", "11:30", "12:30", "13:30"]}]
+  
   $scope.goto = function(doctor) {
     window.localStorage.doctor = JSON.stringify(doctor)
-    // console.log(doctor)
-    window.location = "#/tab/status/category/lad/appointment/specific"
+    window.location = "#/tab/status/category/lad/doctors/specific"
   }
 
   $scope.date = "(" + window.localStorage.date + ")"
 })
 
-.controller('AppointmentSpecificCtrl', function($scope) {
+.controller('DoctorsSpecificCtrl', function($scope) {
   doctor = JSON.parse(window.localStorage.doctor)
   $scope.name = doctor.name
   $scope.img = doctor.img
@@ -62,11 +62,11 @@ angular.module('starter.controllers', [])
 
   $scope.chooseAppointment = function(time){
     window.localStorage.time = time
-    window.location = "#tab/status/category/lad/appointment/specific/confirmation"
+    window.location = "#/tab/status/confirmation";
   }
 })
 
-.controller('ConfirmationCtrl', function($scope){
+.controller('ConfirmationCtrl', function($scope) {
   doctor = JSON.parse(window.localStorage.doctor)
   $scope.category = window.localStorage.category
   $scope.date = window.localStorage.date
@@ -77,23 +77,11 @@ angular.module('starter.controllers', [])
   $scope.time = window.localStorage.time
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
-
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
+.controller('AppointmentsCtrl', function($scope, Chats) {
+  // $scope.chats = Chats.all();
+  // $scope.remove = function(chat) {
+  //   Chats.remove(chat);
+  // }
 })
 
 .controller('AccountCtrl', function($scope) {
