@@ -67,7 +67,14 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ConfirmationCtrl', function($scope){
-
+  doctor = JSON.parse(window.localStorage.doctor)
+  $scope.category = window.localStorage.category
+  $scope.date = window.localStorage.date
+  $scope.name = doctor.name
+  $scope.img = doctor.img
+  $scope.profile = doctor.profile
+  $scope.location = window.localStorage.location
+  $scope.time = window.localStorage.time
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
