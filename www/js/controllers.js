@@ -7,6 +7,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('appotCategoryCtrl', function($scope) {
+  $scope.cats = [{id:"dental",name:"Dental"}, {id:"ent",name:"ENT"}, {id:"womenhealth", name:"Women's Health"}]
   $scope.click = function(cat) {
     window.localStorage.category = cat;
     window.location = "#/tab/status/category/lad";
@@ -35,7 +36,7 @@ angular.module('starter.controllers', [])
   times: ["08:30", "11:30", "12:30", "13:30"]}]
   $scope.goto = function(doctor) {
     window.localStorage.doctor = JSON.stringify(doctor)
-    console.log(doctor)
+    // console.log(doctor)
     window.location = "#/tab/status/category/lad/appointment/specific"
   }
 
@@ -56,8 +57,17 @@ angular.module('starter.controllers', [])
     $scope.timerows[i] = Array();
   }
   for(var i=0; i < times.length; i++) {
-    $scope.timerows[Math.floor(i/3)].push(times[i]);
+    $scope.timerows[Math.floor(i/3)].push(times[i]); 
   }
+
+  $scope.chooseAppointment = function(time){
+    window.localStorage.time = time
+    window.location = "#tab/status/category/lad/appointment/specific/confirmation"
+  }
+})
+
+.controller('ConfirmationCtrl', function($scope){
+
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {

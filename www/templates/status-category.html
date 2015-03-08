@@ -6,14 +6,15 @@
 -->
 <ion-view view-title="Choose Category">
   <ion-content class="padding">
-    <button class="button button-block button-calm" ng-click="click(1)">
-      Dental
+    <button class="button button-block button-calm" ng-repeat="cat in cats" ng-click="click(cat.id)">
+      <!-- Dental -->
+      {{ cat.name }}
     </button>
-    <button class="button button-block button-calm" ng-click="click(2)">
+    <!-- <button class="button button-block button-calm" ng-click="click("ent")">
       ENT
     </button>
-    <button class="button button-block button-calm" ng-click="click(3)">
+    <button class="button button-block button-calm" ng-click="click("womenhealth")">
       women’s health
-    </button>
+    </button> -->
   </ion-content>
 </ion-view>

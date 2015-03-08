@@ -85,6 +85,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
+      .state('tab.status-confirmation', {
+      url: '/status/category/lad/appointment/specific/confirmation',
+      views: {
+        'tab-status': {
+          templateUrl: 'templates/status-confirmation.html',
+          controller: 'ConfirmationCtrl'
+        }
+      }
+    })
+
   .state('tab.chats', {
       url: '/chats',
       views: {
