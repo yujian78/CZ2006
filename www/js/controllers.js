@@ -16,8 +16,8 @@ angular.module('starter.controllers', [])
 .controller('DateLocationCtrl', function($scope) {
   $scope.locations = [{id:"none",name: " "}, {id:"jurong_point", name: "Jurong Point"}, {id:"bishan", name: "Bishan"}, 
   {id:"changi_airport", name: "Changi Airport"}]
-  $scope.dates = [{id:"none",name: " "}, {id:"03-08", name: "March 8th"}, {id:"03-09", name: "March 9th"}, 
-  {id:"03-10", name: "March 10th"}]
+  $scope.dates = [{id:"none",name: " "}, {id:"2015-03-08", name: "March 8th"}, {id:"2015-03-09", name: "March 9th"}, 
+  {id:"2015-03-10", name: "March 10th"}]
   
   $scope.click = function() {
     window.location = "#/tab/status/category/lad/appointment";
@@ -38,6 +38,8 @@ angular.module('starter.controllers', [])
     console.log(doctor)
     window.location = "#/tab/status/category/lad/appointment/specific"
   }
+
+  $scope.date = "(" + window.localStorage.date + ")"
 })
 
 .controller('AppointmentSpecificCtrl', function($scope) {
@@ -45,6 +47,7 @@ angular.module('starter.controllers', [])
   $scope.name = doctor.name
   $scope.img = doctor.img
   $scope.profile = doctor.profile
+  $scope.date = window.localStorage.date
 
   $scope.detail = "Dr Marty Mcfly obtained her Master’s degree in Internal Medicine from the National University of Singapore and membership of the Royal College of Physicians (UK) in 2002. She received her specialist accreditation in Respiratory Medicine in Singapore in 2005 and was awarded the European Diploma in Intensive Care by the European Society of Intensive Care Medicine in 2006. She completed further training in Advanced Pulmonology and Multi-Disciplinary Intensive Care Medicine under a Singapore Ministry of Health scholarship at the Cleveland Clinic in Ohio, USA in 2009 and was elected a Fellow Physician of the American College of Chest Physicians."
   times = doctor.times;
