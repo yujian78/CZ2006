@@ -1,5 +1,22 @@
 angular.module('starter.controllers', [])
 
+.controller('LoginCtrl', function($scope, Login) {
+  $scope.signin = function(username, password) {
+    console.log(username, password)
+    if(username=="" || password=="" || username==undefined || password==undefined) {
+      alert("You must type password sb!");
+      return;
+    }
+    Login.login(username, password, function(data) {
+      if(data["code"] == 1) {
+        window.location = "#/tab/status";
+      } else {
+        alert("username or password is not correct!");
+      }
+    });
+  }
+})
+
 .controller('DashCtrl', function($scope) {
   $scope.new_appointment = function() {
     window.location = "#/tab/status/category"
@@ -34,7 +51,7 @@ angular.module('starter.controllers', [])
   times: ["09:30", "10:30", "11:30", "12:30", "13:30"]}, 
   {img: "img/doc3.png", name: "Tom Hagons", profile: "General Practitioner", 
   times: ["08:30", "11:30", "12:30", "13:30"]}]
-  
+
   $scope.goto = function(doctor) {
     window.localStorage.doctor = JSON.stringify(doctor)
     window.location = "#/tab/status/category/lad/doctors/specific"
