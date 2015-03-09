@@ -1,8 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, Login) {
+.controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout) {
   $scope.signin = function(username, password) {
-    console.log(username, password)
+    // console.log(username, password)
     if(username=="" || password=="" || username==undefined || password==undefined) {
       alert("You must type password sb!");
       return;
@@ -11,7 +11,18 @@ angular.module('starter.controllers', [])
       if(data["code"] == 1) {
         window.location = "#/tab/status";
       } else {
-        alert("username or password is not correct!");
+        //alert("username or password is not correct!");
+        // Triggered on a button click, or some other target
+        $scope.showAlert = function() {
+          var alertPopup = $ionicPopup.alert({
+            title: 'Invalid Password',
+            template: 'Please re-enter your account info'
+          });
+          alertPopup.then(function(res) {
+
+          });
+        };
+        $scope.showAlert();
       }
     });
   }
@@ -83,7 +94,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ConfirmationCtrl', function($scope) {
+.controller('ConfirmationCtrl', function($scope, $ionicPopup) {
   doctor = JSON.parse(window.localStorage.doctor)
   $scope.category = window.localStorage.category
   $scope.date = window.localStorage.date
@@ -92,13 +103,25 @@ angular.module('starter.controllers', [])
   $scope.profile = doctor.profile
   $scope.location = window.localStorage.location
   $scope.time = window.localStorage.time
+
+  // A confirm dialog
+  $scope.showConfirm = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Confirm Appointment',
+      template: 'Are you sure you want to confirm this appointment?'
+    });
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log('You are sure');
+      } else {
+        console.log('You are not sure');
+      }
+    });
+  };
 })
 
 .controller('AppointmentsCtrl', function($scope, Chats) {
-  // $scope.chats = Chats.all();
-  // $scope.remove = function(chat) {
-  //   Chats.remove(chat);
-  // }
+  
 })
 
 .controller('AccountCtrl', function($scope) {
