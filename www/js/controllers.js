@@ -17,7 +17,6 @@ angular.module('starter.controllers', [])
             template: 'Please re-enter your account info'
           });
           alertPopup.then(function(res) {
-
           });
         };
         $scope.showAlert();

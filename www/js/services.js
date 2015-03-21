@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
 .factory("ServerURL", function() {
-  var baseUrl = "http://128.199.219.37/"
+  var baseUrl = "http://ciel.at/"
 
   return {
     login: baseUrl + "login.php",
@@ -17,7 +17,7 @@ angular.module('starter.services', [])
     .post(ServerURL.login, {"username": username, "password": password})
     .success(function(data) {
       callback(data);
-    });
+    })
   }
 
   return {
