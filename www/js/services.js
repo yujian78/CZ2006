@@ -8,7 +8,8 @@ angular.module('starter.services', [])
     category: baseUrl + "category_info.php",
     dalocation: baseUrl + "datelocation_info.php",
     doctors: baseUrl + "doctors_info.php",
-    confirmation: baseUrl + "confirmation.php"
+    confirmation: baseUrl + "confirmation.php",
+    makeappointment: baseUrl + "makeappointment.php"
   }
 })
 
@@ -75,9 +76,23 @@ angular.module('starter.services', [])
     .success(function(data){
       callback(data);
     });
+  }
+
+  return {
+    clinicRequest: clinicRequest,
+  }
+})
+
+.factory('ConfirmAppointment', function($http, ServerURL) {
+  var makeAppointment = function(Category, UserEmail, Date, Time, DoctorID, callback){
+    $http
+    .post(ServerURL.makeappointment, {"Category": Category, "UserEmail": UserEmail, "Date": Date, "Time": Time, "DoctorID": DoctorID})
+    .success(function(data){
+      callback(data);
+    });
   } 
 
   return {
-    clinicRequest: clinicRequest
+    makeAppointment: makeAppointment
   }
 })

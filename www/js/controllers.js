@@ -1,8 +1,11 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout) {
+  
   $scope.signin = function(username, password) {
     // console.log(username, password)
+    window.localStorage.username = username;
+
     if(username=="" || password=="" || username==undefined || password==undefined) {
       alert("You must type password sb!");
       return;
@@ -90,30 +93,47 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ConfirmationCtrl', function($scope, $ionicPopup, DisplayConfirmation) {
+.controller('ConfirmationCtrl', function($scope, $ionicPopup, DisplayConfirmation, ConfirmAppointment) {
   $scope.doctor = JSON.parse(window.localStorage.doctor);
   $scope.date = window.localStorage.date;
-  // window.localStorage.clinic;
   $scope.time = window.localStorage.time;
-
-  DisplayConfirmation.clinicRequest($scope.doctor["ID"], function(data) {
+  DisplayConfirmation.clinicRequest($scope.doctor.ID, function(data) {
     $scope.clinic = angular.copy(data);
-    console.log($scope.clinic);
   });
 
-  // A confirm dialog
+  // console.log($scope.doctor.Category);
   $scope.showConfirm = function() {
     var confirmPopup = $ionicPopup.confirm({
       title: 'Confirm Appointment',
       template: 'Are you sure you want to confirm this appointment?'
     });
+
     confirmPopup.then(function(res) {
       if(res) {
-        console.log('You are sure');
-      } else {
-        console.log('You are not sure');
+        ConfirmAppointment.makeAppointment($scope.doctor.Category, window.localStorage.username, $scope.date, 
+          $scope.time, $scope.doctor.ID, function(data) {
+            // Get the message from server
+            errorMessage = angular.copy(data);
+            // show alert
+            $scope.showAlert = function() {
+              //definre alert
+              var alertPopup = $ionicPopup.alert({
+                title: errorMessage.title,
+                template: errorMessage.msg
+              });
+              //show alert
+              alertPopup.then(function(res){
+              });
+            };
+            $scope.showAlert();
+            window.location = "#/tab/status";
+
+          })
+      } else{
+
       }
     });
+
   };
 })
 
