@@ -7,7 +7,8 @@ angular.module('starter.services', [])
     login: baseUrl + "login.php",
     category: baseUrl + "category_info.php",
     dalocation: baseUrl + "datelocation_info.php",
-    doctors: baseUrl + "doctors_info.php"
+    doctors: baseUrl + "doctors_info.php",
+    confirmation: baseUrl + "confirmation.php"
   }
 })
 
@@ -40,9 +41,9 @@ angular.module('starter.services', [])
 })
 
 .factory('DisplayDateLoc', function($http, ServerURL) {
-  var datelocRequest = function(callback){
+  var datelocRequest = function(catChoice, callback){
     $http
-    .post(ServerURL.dalocation, {"requestForLad": "true"})
+    .post(ServerURL.dalocation, {"requestForLad": catChoice})
     .success(function(data){
       callback(data);
     });
@@ -54,9 +55,9 @@ angular.module('starter.services', [])
 })
 
 .factory('DisplayDoc', function($http, ServerURL) {
-  var docRequest = function(callback){
+  var docRequest = function(date, clinic, category, callback){
     $http
-    .post(ServerURL.doctors, {"requestForDoc": "true"})
+    .post(ServerURL.doctors, {"selectDate": date, "selectClinic": clinic, "selectCategory": category})
     .success(function(data){
       callback(data);
     });
@@ -64,5 +65,19 @@ angular.module('starter.services', [])
 
   return {
     docRequest: docRequest
+  }
+})
+
+.factory('DisplayConfirmation', function($http, ServerURL) {
+  var clinicRequest = function(doctorID, callback){
+    $http
+    .post(ServerURL.confirmation, {"Doctor": doctorID})
+    .success(function(data){
+      callback(data);
+    });
+  } 
+
+  return {
+    clinicRequest: clinicRequest
   }
 })

@@ -3,16 +3,19 @@
     <div class="list card">
       <div class="item item-avatar">
 
-        <img src="{{ img }}">
-        <h2>{{ name }}</h2>
-        <p>{{ profile }}</p>
+        <img src="{{ doctor.Image }}">
+        <h2>{{ doctor.Name }}</h2>
+        <p>{{ doctor.Category }}</p>
       </div>
 
       <div class="item item-body">
-        <p>Category: {{ category }} </p>
+
+        <p>Clinic Name: {{ clinic.Name }} </p>
         <p>Time: {{ time }}</p>
-        <p>Location: {{ location }}</p>
         <p>Date: {{ date }}</p>
+        <p>Location: {{ clinic.Address }}</p>
+        <p>Postal Code: {{ clinic.PostalCode }}</p>
+        
       </div>
     </div>
 

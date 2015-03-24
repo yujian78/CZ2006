@@ -34,52 +34,48 @@ angular.module('starter.controllers', [])
 .controller('appotCategoryCtrl', function($scope, DisplayCat) {
   DisplayCat.catRequest(function(data){
     $scope.cats = angular.copy(data);
-
-    $scope.click = function(cat) {
-      window.localStorage.category = cat;
-      window.location = "#/tab/status/category/lad";
-    }
   });
+  $scope.click = function(cat) {
+    window.localStorage.category = cat;
+    window.location = "#/tab/status/category/lad";
+  }
 })
 
 .controller('DateLocationCtrl', function($scope, DisplayDateLoc) {
-  DisplayDateLoc.datelocRequest(function(data){
+  $scope.catChoice = window.localStorage.category;
+  DisplayDateLoc.datelocRequest($scope.catChoice, function(data){
     $scope.datelocation = angular.copy(data);
-    $scope.locations = $scope.datelocation.location;
+    $scope.clinics = $scope.datelocation.clinic;
     $scope.dates = $scope.datelocation.date;
-
-    
   });
   $scope.click = function() {
       window.location = "#/tab/status/category/lad/doctors";
-      window.localStorage.location = document.getElementById("location").value;
+      window.localStorage.clinic = document.getElementById("clinic").value;
       window.localStorage.date = document.getElementById("date").value;
   }
 })
 
 .controller('DoctorsCtrl', function($scope, DisplayDoc) {
-  DisplayDoc.docRequest(function(data){
+  date = window.localStorage.date;
+  clinic = window.localStorage.clinic;
+  category = window.localStorage.category;
+  DisplayDoc.docRequest(date, clinic, category, function(data) {
     $scope.doctors = angular.copy(data);
+    //console.log($scope.doctors);
   });
 
   $scope.goto = function(doctor) {
     window.localStorage.doctor = JSON.stringify(doctor)
     window.location = "#/tab/status/category/lad/doctors/specific"
-    console.log(doctor);
+    //console.log(doctor);
   }
-
-  $scope.date = "(" + window.localStorage.date + ")"
 })
 
 .controller('DoctorsSpecificCtrl', function($scope) {
-  doctor = JSON.parse(window.localStorage.doctor);
-  $scope.name = doctor.name;
-  $scope.img = doctor.img;
-  $scope.profile = doctor.profile;
-  $scope.detail = doctor.detail;
-  $scope.date = window.localStorage.date;
+  $scope.doctor = JSON.parse(window.localStorage.doctor);
+  $scope.date = window.localStorage.date
 
-  times = doctor.times;
+  times = $scope.doctor.Times;
   $scope.timerows = Array(Math.floor((times.length + 2) / 3));
   for(var i=0; i<$scope.timerows.length; i++) {
     $scope.timerows[i] = Array();
@@ -94,15 +90,16 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ConfirmationCtrl', function($scope, $ionicPopup) {
-  doctor = JSON.parse(window.localStorage.doctor)
-  $scope.category = window.localStorage.category
-  $scope.date = window.localStorage.date
-  $scope.name = doctor.name
-  $scope.img = doctor.img
-  $scope.profile = doctor.profile
-  $scope.location = window.localStorage.location
-  $scope.time = window.localStorage.time
+.controller('ConfirmationCtrl', function($scope, $ionicPopup, DisplayConfirmation) {
+  $scope.doctor = JSON.parse(window.localStorage.doctor);
+  $scope.date = window.localStorage.date;
+  // window.localStorage.clinic;
+  $scope.time = window.localStorage.time;
+
+  DisplayConfirmation.clinicRequest($scope.doctor["ID"], function(data) {
+    $scope.clinic = angular.copy(data);
+    console.log($scope.clinic);
+  });
 
   // A confirm dialog
   $scope.showConfirm = function() {
