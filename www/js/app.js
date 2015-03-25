@@ -36,7 +36,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
@@ -54,60 +54,62 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-   .state('tab.status-category', {
-      cache: false,
+  .state('tab.status-category', {
+    cache: false,
 
-      url: '/status/category',
-      views: {
-        'tab-status': {
-          templateUrl: 'templates/status-category.html',
-          controller: 'appotCategoryCtrl'
-        }
+    url: '/status/category',
+    views: {
+      'tab-status': {
+        templateUrl: 'templates/status-category.html',
+        controller: 'appotCategoryCtrl'
       }
-    })
-      .state('tab.status-category-lad', {
-      cache: false,
-      url: '/status/category/lad',
-      views: {
-        'tab-status': {
-          templateUrl: 'templates/status-datelocation.html',
-          controller: 'DateLocationCtrl'
-        }
+    }
+  })
+  .state('tab.status-category-lad', {
+    cache: false,
+    url: '/status/category/lad',
+    views: {
+      'tab-status': {
+        templateUrl: 'templates/status-datelocation.html',
+        controller: 'DateLocationCtrl'
       }
-    })
-      .state('tab.status-doctors', {
-      cache: false,
-      url: '/status/category/lad/doctors',
-      views: {
-        'tab-status': {
-          templateUrl: 'templates/status-doctors.html',
-          controller: 'DoctorsCtrl'
-        }
+    }
+  })
+  .state('tab.status-doctors', {
+    cache: false,
+    url: '/status/category/lad/doctors',
+    views: {
+      'tab-status': {
+        templateUrl: 'templates/status-doctors.html',
+        controller: 'DoctorsCtrl'
       }
-    })
+    }
+  })
 
-      .state('tab.status-doctors-specific', {
-        cache: false,
-        url: '/status/category/lad/doctors/specific',
-        views: {
-          'tab-status': {
-            templateUrl: 'templates/status-doctors-specific.html',
-            controller: 'DoctorsSpecificCtrl'
-          }
-        }
-    })
-
-      .state('tab.status-confirmation', {
-      url: '/status/confirmation',
+  .state('tab.status-doctors-specific', {
+      cache: false,
+      url: '/status/category/lad/doctors/specific',
       views: {
         'tab-status': {
-          templateUrl: 'templates/status-confirmation.html',
-          controller: 'ConfirmationCtrl'
+          templateUrl: 'templates/status-doctors-specific.html',
+          controller: 'DoctorsSpecificCtrl'
         }
       }
-    })
+  })
+
+  .state('tab.status-confirmation', {
+    cache: false,
+    url: '/status/confirmation',
+    views: {
+      'tab-status': {
+        templateUrl: 'templates/status-confirmation.html',
+        controller: 'ConfirmationCtrl'
+      }
+    }
+  })
 
   .state('tab.appointments', {
+      cache: false,
       url: '/appointments',
       views: {
         'tab-appointments': {

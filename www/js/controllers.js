@@ -37,8 +37,8 @@ angular.module('starter.controllers', [])
   DisplayCat.catRequest(function(data){
     $scope.cats = angular.copy(data);
   });
-  $scope.click = function(cat) {
-    window.localStorage.category = cat;
+  $scope.chooseCat = function(catChoosen) {
+    window.localStorage.category = catChoosen;
     window.location = "#/tab/status/category/lad";
   }
 })
@@ -65,14 +65,14 @@ angular.module('starter.controllers', [])
   });
 
   $scope.goto = function(doctor) {
-    window.localStorage.doctor = JSON.stringify(doctor)
-    window.location = "#/tab/status/category/lad/doctors/specific"
+    window.localStorage.doctor = JSON.stringify(doctor);
+    window.location = "#/tab/status/category/lad/doctors/specific";
   }
 })
 
 .controller('DoctorsSpecificCtrl', function($scope) {
   $scope.doctor = JSON.parse(window.localStorage.doctor);
-  $scope.date = window.localStorage.date
+  $scope.date = window.localStorage.date;
 
   times = $scope.doctor.Times;
   $scope.timerows = Array(Math.floor((times.length + 2) / 3));
@@ -134,8 +134,14 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('AppointmentsCtrl', function($scope, Chats) {
-  
+.controller('AppointmentsCtrl', function($scope, DisplayAppointment) {
+  DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+    $scope.apps = angular.copy(data);
+  });
+
+  $scope.chooseApp = function(catChoosen) {
+    // window.location = "#/tab/appointments/info";
+  }
 })
 
 .controller('AccountCtrl', function($scope) {

@@ -9,7 +9,8 @@ angular.module('starter.services', [])
     dalocation: baseUrl + "datelocation_info.php",
     doctors: baseUrl + "doctors_info.php",
     confirmation: baseUrl + "confirmation.php",
-    makeappointment: baseUrl + "makeappointment.php"
+    makeappointment: baseUrl + "makeappointment.php",
+    appointmentInfo: baseUrl + "appointment_info.php"
   }
 })
 
@@ -79,7 +80,7 @@ angular.module('starter.services', [])
   }
 
   return {
-    clinicRequest: clinicRequest,
+    clinicRequest: clinicRequest
   }
 })
 
@@ -94,5 +95,19 @@ angular.module('starter.services', [])
 
   return {
     makeAppointment: makeAppointment
+  }
+})
+
+.factory('DisplayAppointment', function($http, ServerURL) {
+  var appointmentRequest = function(userID, callback){
+    $http
+    .post(ServerURL.appointmentInfo, {"appRequest": userID})
+    .success(function(data){
+      callback(data);
+    });
+  }
+
+  return {
+    appointmentRequest: appointmentRequest
   }
 })
