@@ -45,6 +45,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each tab has its own nav history stack:
 
   .state('tab.status', {
+    cache: false,
     url: '/status',
     views: {
       'tab-status': {
@@ -54,6 +55,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
    .state('tab.status-category', {
+      cache: false,
+
       url: '/status/category',
       views: {
         'tab-status': {
@@ -63,6 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
       .state('tab.status-category-lad', {
+      cache: false,
       url: '/status/category/lad',
       views: {
         'tab-status': {
@@ -72,6 +76,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
       .state('tab.status-doctors', {
+      cache: false,
       url: '/status/category/lad/doctors',
       views: {
         'tab-status': {
@@ -82,13 +87,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
       .state('tab.status-doctors-specific', {
-      url: '/status/category/lad/doctors/specific',
-      views: {
-        'tab-status': {
-          templateUrl: 'templates/status-doctors-specific.html',
-          controller: 'DoctorsSpecificCtrl'
+        cache: false,
+        url: '/status/category/lad/doctors/specific',
+        views: {
+          'tab-status': {
+            templateUrl: 'templates/status-doctors-specific.html',
+            controller: 'DoctorsSpecificCtrl'
+          }
         }
-      }
     })
 
       .state('tab.status-confirmation', {
