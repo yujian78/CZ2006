@@ -10,7 +10,8 @@ angular.module('starter.services', [])
     doctors: baseUrl + "doctors_info.php",
     confirmation: baseUrl + "confirmation.php",
     makeappointment: baseUrl + "makeappointment.php",
-    appointmentInfo: baseUrl + "appointment_info.php"
+    appointmentInfo: baseUrl + "appointment_info.php",
+    deleteApp: baseUrl + "deleteappointment.php"
   }
 })
 
@@ -109,5 +110,19 @@ angular.module('starter.services', [])
 
   return {
     appointmentRequest: appointmentRequest
+  }
+})
+
+.factory('DeleteAppointment', function($http, ServerURL) {
+  var deleteRequest = function(appID, callback){
+    $http
+    .post(ServerURL.deleteApp, {"deleteRequest": appID})
+    .success(function(data){
+      callback(data);
+    });
+  }
+
+  return {
+    deleteRequest: deleteRequest
   }
 })

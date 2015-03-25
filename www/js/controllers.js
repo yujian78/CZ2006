@@ -94,7 +94,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ConfirmationCtrl', function($scope, $ionicPopup, DisplayConfirmation, ConfirmAppointment) {
+.controller('ConfirmationCtrl', function($scope, $ionicPopup, DisplayConfirmation, ConfirmAppointment, DisplayAppointment) {
   $scope.doctor = JSON.parse(window.localStorage.doctor);
   $scope.date = window.localStorage.date;
   $scope.time = window.localStorage.time;
@@ -127,8 +127,17 @@ angular.module('starter.controllers', [])
               });
             };
             $scope.showAlert();
+
+            //Refresh the appointment lists
+            DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+              apps = angular.copy(data);
+              window.localStorage.userApp = JSON.stringify(apps);;
+            });
+
+            Username = window.localStorage.username;
+            window.localStorage.clear();
+            window.localStorage.username = Username;
             window.location = "#/tab/status";
-            $scope.hideBackButton = true;
 
           })
       } else{
@@ -140,9 +149,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AppointmentsCtrl', function($scope, DisplayAppointment) {
-  // DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
-  //   $scope.apps = angular.copy(data);
-  // });
   $scope.apps = JSON.parse(window.localStorage.userApp);
 
   $scope.chooseApp = function(appChoosen) {
@@ -151,8 +157,52 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AppointmentsDetailCtrl', function($scope) {
+.controller('AppointmentsDetailCtrl', function($scope, $ionicPopup, DeleteAppointment, DisplayAppointment) {
   $scope.appChoosen = JSON.parse(window.localStorage.appSelect);
+
+  $scope.editAppoint = function() {
+    window.localStorage.category = $scope.appChoosen.Category;
+    window.location = "#/tab/status/category/lad";
+  }
+
+  $scope.deleteAppoint = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Confirm Appointment',
+      template: 'Are you sure you want to confirm this appointment?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res){
+        appID = $scope.appChoosen.ID;
+        DeleteAppointment.deleteRequest(appID, function(data){
+          // Get the message from server
+          errorMessage = angular.copy(data);
+          // show alert
+          $scope.showAlert = function() {
+            //definre alert
+            var alertPopup = $ionicPopup.alert({
+              title: errorMessage.title,
+              template: errorMessage.msg
+            });
+            //show alert
+            alertPopup.then(function(res){
+            });
+          };
+          $scope.showAlert();
+          //Refresh the appointment lists
+          DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+            apps = angular.copy(data);
+            window.localStorage.userApp = JSON.stringify(apps);;
+          });
+
+          window.location = "#/tab/appointments";
+        })
+      } else{
+
+      }
+    });
+  }
+  
 })
 
 .controller('AccountCtrl', function($scope) {
