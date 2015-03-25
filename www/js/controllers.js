@@ -161,14 +161,37 @@ angular.module('starter.controllers', [])
   $scope.appChoosen = JSON.parse(window.localStorage.appSelect);
 
   $scope.editAppoint = function() {
-    window.localStorage.category = $scope.appChoosen.Category;
-    window.location = "#/tab/status/category/lad";
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Edit Appointment',
+      template: 'Are you sure you want to edit this appointment?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res){
+        appID = $scope.appChoosen.ID;
+        DeleteAppointment.deleteRequest(appID, function(data){
+          // Get the message from server
+          errorMessage = angular.copy(data);
+          
+          //Refresh the appointment lists
+          DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+            apps = angular.copy(data);
+            window.localStorage.userApp = JSON.stringify(apps);;
+          });
+
+          window.localStorage.category = $scope.appChoosen.Category;
+          window.location = "#/tab/status/category/lad";
+        })
+      } else{
+
+      }
+    });
   }
 
   $scope.deleteAppoint = function() {
     var confirmPopup = $ionicPopup.confirm({
-      title: 'Confirm Appointment',
-      template: 'Are you sure you want to confirm this appointment?'
+      title: 'Delete Appointment',
+      template: 'Are you sure you want to delete this appointment?'
     });
 
     confirmPopup.then(function(res) {
