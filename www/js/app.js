@@ -118,7 +118,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    
+  
+  .state('tab.appointments-detail', {
+      cache: false,
+      url: '/appointments/detail',
+      views: {
+        'tab-appointments': {
+          templateUrl: 'templates/appointments-detail.html',
+          controller: 'AppointmentsDetailCtrl'
+        }
+      }
+    })
+
+
   .state('tab.account', {
     url: '/account',
     views: {

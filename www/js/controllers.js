@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout) {
+.controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout, DisplayAppointment) {
   $scope.signin = function(username, password) {
     // console.log(username, password)
     window.localStorage.username = username;
@@ -11,6 +11,10 @@ angular.module('starter.controllers', [])
     }
     Login.login(username, password, function(data) {
       if(data["code"] == 1) {
+        DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+          apps = angular.copy(data);
+          window.localStorage.userApp = JSON.stringify(apps);;
+        });
         window.location = "#/tab/status";
       } else {
         $scope.showAlert = function() {
@@ -28,6 +32,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DashCtrl', function($scope) {
+
   $scope.new_appointment = function() {
     window.location = "#/tab/status/category"
   }
@@ -135,13 +140,19 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AppointmentsCtrl', function($scope, DisplayAppointment) {
-  DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
-    $scope.apps = angular.copy(data);
-  });
+  // DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+  //   $scope.apps = angular.copy(data);
+  // });
+  $scope.apps = JSON.parse(window.localStorage.userApp);
 
-  $scope.chooseApp = function(catChoosen) {
-    // window.location = "#/tab/appointments/info";
+  $scope.chooseApp = function(appChoosen) {
+    window.localStorage.appSelect = JSON.stringify(appChoosen);
+    window.location = "#/tab/appointments/detail";
   }
+})
+
+.controller('AppointmentsDetailCtrl', function($scope) {
+  $scope.appChoosen = JSON.parse(window.localStorage.appSelect);
 })
 
 .controller('AccountCtrl', function($scope) {
