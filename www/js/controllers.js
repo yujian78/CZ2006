@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout) {
-  
   $scope.signin = function(username, password) {
     // console.log(username, password)
     window.localStorage.username = username;
@@ -51,26 +50,23 @@ angular.module('starter.controllers', [])
     $scope.clinics = $scope.datelocation.clinic;
     $scope.dates = $scope.datelocation.date;
   });
+
   $scope.click = function() {
-      window.location = "#/tab/status/category/lad/doctors";
       window.localStorage.clinic = document.getElementById("clinic").value;
       window.localStorage.date = document.getElementById("date").value;
+      window.location = "#/tab/status/category/lad/doctors";
+      // window.location.reload(true);
   }
 })
 
 .controller('DoctorsCtrl', function($scope, DisplayDoc) {
-  date = window.localStorage.date;
-  clinic = window.localStorage.clinic;
-  category = window.localStorage.category;
-  DisplayDoc.docRequest(date, clinic, category, function(data) {
+  DisplayDoc.docRequest(window.localStorage.date, window.localStorage.clinic, window.localStorage.category, function(data) {
     $scope.doctors = angular.copy(data);
-    //console.log($scope.doctors);
   });
 
   $scope.goto = function(doctor) {
     window.localStorage.doctor = JSON.stringify(doctor)
     window.location = "#/tab/status/category/lad/doctors/specific"
-    //console.log(doctor);
   }
 })
 
@@ -127,6 +123,7 @@ angular.module('starter.controllers', [])
             };
             $scope.showAlert();
             window.location = "#/tab/status";
+            $scope.hideBackButton = true;
 
           })
       } else{
