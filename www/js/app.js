@@ -132,6 +132,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 
   .state('tab.account', {
+    cache: false,
     url: '/account',
     views: {
       'tab-account': {
@@ -139,7 +140,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+
+  .state('tab.account-contactInfo', {
+    url: '/account/contactInfo',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/account-contactInfo.html',
+        controller: 'AccountContactCtrl'
+      }
+    }
+  })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

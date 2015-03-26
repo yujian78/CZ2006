@@ -2,8 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout, DisplayAppointment) {
   $scope.signin = function(username, password) {
-    // console.log(username, password)
-    window.localStorage.username = username;
+    // window.localStorage.username = username;
 
     if(username=="" || password=="" || username==undefined || password==undefined) {
       alert("You must type password sb!");
@@ -11,10 +10,11 @@ angular.module('starter.controllers', [])
     }
     Login.login(username, password, function(data) {
       if(data["code"] == 1) {
-        DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+        DisplayAppointment.appointmentRequest(username, function(data){
           apps = angular.copy(data);
-          window.localStorage.userApp = JSON.stringify(apps);;
+          window.localStorage.userApp = JSON.stringify(apps);
         });
+        window.localStorage.userInfo = JSON.stringify(data["info"]);
         window.location = "#/tab/status";
       } else {
         $scope.showAlert = function() {
@@ -89,7 +89,7 @@ angular.module('starter.controllers', [])
   }
 
   $scope.chooseAppointment = function(time){
-    window.localStorage.time = time
+    window.localStorage.time = time;
     window.location = "#/tab/status/confirmation";
   }
 })
@@ -102,6 +102,9 @@ angular.module('starter.controllers', [])
     $scope.clinic = angular.copy(data);
   });
 
+  userInfo = JSON.parse(window.localStorage.userInfo);
+  userEmail = userInfo.Email;
+
   // console.log($scope.doctor.Category);
   $scope.showConfirm = function() {
     var confirmPopup = $ionicPopup.confirm({
@@ -111,7 +114,7 @@ angular.module('starter.controllers', [])
 
     confirmPopup.then(function(res) {
       if(res) {
-        ConfirmAppointment.makeAppointment($scope.doctor.Category, window.localStorage.username, $scope.date, 
+        ConfirmAppointment.makeAppointment($scope.doctor.Category, userEmail, $scope.date, 
           $scope.time, $scope.doctor.ID, function(data) {
             // Get the message from server
             errorMessage = angular.copy(data);
@@ -129,16 +132,15 @@ angular.module('starter.controllers', [])
             $scope.showAlert();
 
             //Refresh the appointment lists
-            DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+            DisplayAppointment.appointmentRequest(userEmail, function(data){
               apps = angular.copy(data);
               window.localStorage.userApp = JSON.stringify(apps);;
             });
 
-            Username = window.localStorage.username;
+            userInfo = window.localStorage.userInfo;
             window.localStorage.clear();
-            window.localStorage.username = Username;
+            window.localStorage.userInfo = userInfo;
             window.location = "#/tab/status";
-
           })
       } else{
 
@@ -169,12 +171,13 @@ angular.module('starter.controllers', [])
     confirmPopup.then(function(res) {
       if(res){
         appID = $scope.appChoosen.ID;
+        userInfo = JSON.parse(window.localStorage.userInfo);
         DeleteAppointment.deleteRequest(appID, function(data){
           // Get the message from server
           errorMessage = angular.copy(data);
           
           //Refresh the appointment lists
-          DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+          DisplayAppointment.appointmentRequest(userInfo.Email, function(data){
             apps = angular.copy(data);
             window.localStorage.userApp = JSON.stringify(apps);;
           });
@@ -197,6 +200,7 @@ angular.module('starter.controllers', [])
     confirmPopup.then(function(res) {
       if(res){
         appID = $scope.appChoosen.ID;
+        userInfo = JSON.parse(window.localStorage.userInfo);
         DeleteAppointment.deleteRequest(appID, function(data){
           // Get the message from server
           errorMessage = angular.copy(data);
@@ -213,12 +217,13 @@ angular.module('starter.controllers', [])
           };
           $scope.showAlert();
           //Refresh the appointment lists
-          DisplayAppointment.appointmentRequest(window.localStorage.username, function(data){
+          DisplayAppointment.appointmentRequest(userInfo.Email, function(data){
             apps = angular.copy(data);
             window.localStorage.userApp = JSON.stringify(apps);;
           });
 
           window.location = "#/tab/appointments";
+          //$state.go($state.current, $stateParams, {reload: true});
         })
       } else{
 
@@ -229,7 +234,57 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+  $scope.userInfo = JSON.parse(window.localStorage.userInfo);
+  $scope.updateInfo = function() {
+    window.location = "#/tab/account/contactInfo";
+  }
+})
+
+.controller('AccountContactCtrl', function($scope, $ionicPopup, UpdateUserInfo) {
+  userInfo = JSON.parse(window.localStorage.userInfo);
+  $scope.phone = userInfo.Phone;
+  $scope.username = userInfo.Name;
+
+  $scope.update = function(phoneNo, name) {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Update Information',
+      template: 'Are you sure you want to update your information?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res){
+        UpdateUserInfo.userInfoRequest(phoneNo, name, userInfo.Email, function(data){
+          // Get the message from server
+          errorMessage = angular.copy(data);
+          // show alert
+          $scope.showAlert = function() {
+            //definre alert
+            var alertPopup = $ionicPopup.alert({
+              title: errorMessage.title,
+              template: errorMessage.msg
+            });
+            //show alert
+            alertPopup.then(function(res){
+            });
+          };
+          $scope.showAlert();
+
+          if(phoneNo != null){
+            userInfo.Phone = phoneNo; 
+          }
+          if(name != null){
+            userInfo.Name = name; 
+          }
+          
+          window.localStorage.userInfo = JSON.stringify(userInfo);
+          window.location = "#/tab/account";
+          //$state.go($state.current, $stateParams, {reload: true});
+        })
+      } else{
+
+      }
+    });
+  }
 });
+
+

@@ -11,7 +11,8 @@ angular.module('starter.services', [])
     confirmation: baseUrl + "confirmation.php",
     makeappointment: baseUrl + "makeappointment.php",
     appointmentInfo: baseUrl + "appointment_info.php",
-    deleteApp: baseUrl + "deleteappointment.php"
+    deleteApp: baseUrl + "deleteappointment.php",
+    userInfo: baseUrl + "updateUserInfo.php"
   }
 })
 
@@ -124,5 +125,19 @@ angular.module('starter.services', [])
 
   return {
     deleteRequest: deleteRequest
+  }
+})
+
+.factory('UpdateUserInfo', function($http, ServerURL) {
+  var userInfoRequest = function(phoneNo, name, email, callback){
+    $http
+    .post(ServerURL.userInfo, {"phoneNo": phoneNo, "name": name, "email": email})
+    .success(function(data){
+      callback(data);
+    });
+  }
+
+  return {
+    userInfoRequest: userInfoRequest
   }
 })
