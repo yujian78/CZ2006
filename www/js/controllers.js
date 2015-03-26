@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout, DisplayAppointment) {
+.controller('LoginCtrl', function($scope, Login, $ionicPopup, $timeout, DisplayAppointment, DisplayCat) {
   $scope.signin = function(username, password) {
     // window.localStorage.username = username;
 
@@ -10,10 +10,17 @@ angular.module('starter.controllers', [])
     }
     Login.login(username, password, function(data) {
       if(data["code"] == 1) {
+        // Fetch appointments data first
         DisplayAppointment.appointmentRequest(username, function(data){
           apps = angular.copy(data);
           window.localStorage.userApp = JSON.stringify(apps);
         });
+        // Fetch available categories first
+        DisplayCat.catRequest(function(data){
+          cats = angular.copy(data);
+          window.localStorage.totalCats = JSON.stringify(cats);
+        });
+
         window.localStorage.userInfo = JSON.stringify(data["info"]);
         window.location = "#/tab/status";
       } else {
@@ -32,18 +39,15 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DashCtrl', function($scope) {
-
   $scope.new_appointment = function() {
     window.location = "#/tab/status/category"
   }
 })
 
 .controller('appotCategoryCtrl', function($scope, DisplayCat) {
-  DisplayCat.catRequest(function(data){
-    $scope.cats = angular.copy(data);
-  });
+  $scope.cats = JSON.parse(window.localStorage.totalCats);
   $scope.chooseCat = function(catChoosen) {
-    window.localStorage.category = catChoosen;
+    window.localStorage.category = catChoosen.Category;
     window.location = "#/tab/status/category/lad";
   }
 })
@@ -51,9 +55,9 @@ angular.module('starter.controllers', [])
 .controller('DateLocationCtrl', function($scope, DisplayDateLoc) {
   $scope.catChoice = window.localStorage.category;
   DisplayDateLoc.datelocRequest($scope.catChoice, function(data){
-    $scope.datelocation = angular.copy(data);
-    $scope.clinics = $scope.datelocation.clinic;
-    $scope.dates = $scope.datelocation.date;
+    datelocation = angular.copy(data);
+    $scope.clinics = datelocation.clinic;
+    $scope.dates = datelocation.date;
   });
 
   $scope.click = function() {
@@ -131,15 +135,19 @@ angular.module('starter.controllers', [])
             };
             $scope.showAlert();
 
-            //Refresh the appointment lists
+            // Refresh the appointment lists
             DisplayAppointment.appointmentRequest(userEmail, function(data){
               apps = angular.copy(data);
               window.localStorage.userApp = JSON.stringify(apps);;
             });
 
-            userInfo = window.localStorage.userInfo;
-            window.localStorage.clear();
-            window.localStorage.userInfo = userInfo;
+            // Remove unnecessaty items
+            window.localStorage.removeItem("category");
+            window.localStorage.removeItem("clinic");
+            window.localStorage.removeItem("date");
+            window.localStorage.removeItem("doctor");
+            window.localStorage.removeItem("time");
+            
             window.location = "#/tab/status";
           })
       } else{

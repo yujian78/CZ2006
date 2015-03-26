@@ -65,7 +65,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-  .state('tab.status-category-lad', {
+  .state('tab.status-lad', {
     cache: false,
     url: '/status/category/lad',
     views: {
