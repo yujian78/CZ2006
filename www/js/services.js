@@ -12,7 +12,8 @@ angular.module('starter.services', [])
     makeappointment: baseUrl + "makeappointment.php",
     appointmentInfo: baseUrl + "appointment_info.php",
     deleteApp: baseUrl + "deleteappointment.php",
-    userInfo: baseUrl + "updateUserInfo.php"
+    userInfo: baseUrl + "updateUserInfo.php",
+    changePassword: baseUrl + "updatePassword.php"
   }
 })
 
@@ -139,5 +140,19 @@ angular.module('starter.services', [])
 
   return {
     userInfoRequest: userInfoRequest
+  }
+})
+
+.factory('UpdatePassword', function($http, ServerURL) {
+  var passwordRequest = function(password, email, callback){
+    $http
+    .post(ServerURL.changePassword, {"password": password, "email": email})
+    .success(function(data){
+      callback(data);
+    });
+  }
+
+  return {
+    passwordRequest: passwordRequest
   }
 })

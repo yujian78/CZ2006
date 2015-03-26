@@ -152,6 +152,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('tab.account-password', {
+    url: '/account/password',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/account-password.html',
+        controller: 'PasswordCtrl'
+      }
+    }
+  })
+
+  .state('tab.account-reminder', {
+    url: '/account/reminder',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/account-reminder.html',
+        controller: 'ReminderCtrl'
+      }
+    }
+  })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
 
