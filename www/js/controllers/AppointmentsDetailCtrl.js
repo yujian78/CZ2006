@@ -26,8 +26,6 @@ Controllers
         //     window.localStorage.category = $scope.appChoosen.Category;
         //     window.location = "#/tab/status/category/lad";
         //   });
-
-          
         // })
         window.localStorage.category = $scope.appChoosen.Category;
         window.location = "#/tab/status/category/lad";
