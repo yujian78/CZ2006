@@ -38,8 +38,8 @@ Controllers
             $scope.showAlert();
 
             // Check if from editAppointment
-            isEdit = JSON.parse(window.localStorage.appSelect);
-            if(isEdit){
+            if(window.localStorage.appSelect){
+              isEdit = JSON.parse(window.localStorage.appSelect);
               // Delete the original appointment
               DeleteAppointment.deleteRequest(isEdit.ID, function(data){
                 // Get the message from server

@@ -14,19 +14,7 @@ Controllers
         $ionicHistory.clearHistory();
         appID = $scope.appChoosen.ID;
         userInfo = JSON.parse(window.localStorage.userInfo);
-        // DeleteAppointment.deleteRequest(appID, function(data){
-        //   // Get the message from server
-        //   errorMessage = angular.copy(data);
-          
-        //   //Refresh the appointment lists
-        //   DisplayAppointment.appointmentRequest(userInfo.Email, function(data){
-
-        //     apps = angular.copy(data);
-        //     window.localStorage.userApp = JSON.stringify(apps);
-        //     window.localStorage.category = $scope.appChoosen.Category;
-        //     window.location = "#/tab/status/category/lad";
-        //   });
-        // })
+        
         window.localStorage.category = $scope.appChoosen.Category;
         window.location = "#/tab/status/category/lad";
       } else{
