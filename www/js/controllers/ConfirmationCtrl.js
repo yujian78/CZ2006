@@ -1,6 +1,6 @@
 Controllers
 
-.controller('ConfirmationCtrl', function($scope, $ionicPopup, DisplayConfirmation, ConfirmAppointment, DisplayAppointment) {
+.controller('ConfirmationCtrl', function($scope, $ionicPopup, $ionicViewService, DisplayConfirmation, ConfirmAppointment, DisplayAppointment) {
   $scope.doctor = JSON.parse(window.localStorage.doctor);
   $scope.date = window.localStorage.date;
   $scope.time = window.localStorage.time;
@@ -50,6 +50,10 @@ Controllers
             window.localStorage.removeItem("doctor");
             window.localStorage.removeItem("time");
             
+            $ionicViewService.nextViewOptions({
+              disableBack: true
+            });
+
             window.location = "#/tab/status";
           })
       } else{
