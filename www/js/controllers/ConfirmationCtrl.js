@@ -35,37 +35,33 @@ Controllers
               alertPopup.then(function(res){
               });
             };
+
             $scope.showAlert();
 
             // Check if from editAppointment
-            if(window.localStorage.appSelect){
               isEdit = JSON.parse(window.localStorage.appSelect);
               // Delete the original appointment
               DeleteAppointment.deleteRequest(isEdit.ID, function(data){
                 // Get the message from server
                 errorMessage = angular.copy(data);
-              })
             }
 
             // Refresh the appointment lists
             DisplayAppointment.appointmentRequest(userEmail, function(data){
               apps = angular.copy(data);
-              window.localStorage.userApp = JSON.stringify(apps);;
-            });
+              window.localStorage.userApp = JSON.stringify(apps);
 
-            // Remove unnecessaty items
-            window.localStorage.removeItem("category");
-            window.localStorage.removeItem("clinic");
-            window.localStorage.removeItem("date");
-            window.localStorage.removeItem("doctor");
-            window.localStorage.removeItem("time");
             window.localStorage.removeItem("appSelect");
             
-            $ionicHistory.nextViewOptions({
-              disableBack: true
-            });
+              // Remove unnecessaty items
+              window.localStorage.removeItem("category");
+              window.localStorage.removeItem("clinic");
+              window.localStorage.removeItem("date");
+              window.localStorage.removeItem("doctor");
+              window.localStorage.removeItem("time");
 
-            window.location = "#/tab/status";
+              window.location = "#/tab/status";
+            });
           })
       } else{
 
