@@ -1,6 +1,6 @@
 Controllers
 
-.controller('ConfirmationCtrl', function($scope, $ionicPopup, $ionicHistory, DisplayConfirmation, ConfirmAppointment, DisplayAppointment) {
+.controller('ConfirmationCtrl', function($scope, $ionicPopup, $ionicHistory, DisplayConfirmation, ConfirmAppointment, DisplayAppointment, DeleteAppointment) {
   $scope.doctor = JSON.parse(window.localStorage.doctor);
   $scope.date = window.localStorage.date;
   $scope.time = window.localStorage.time;
@@ -37,6 +37,16 @@ Controllers
             };
             $scope.showAlert();
 
+            // Check if from editAppointment
+            isEdit = JSON.parse(window.localStorage.appSelect);
+            if(isEdit){
+              // Delete the original appointment
+              DeleteAppointment.deleteRequest(isEdit.ID, function(data){
+                // Get the message from server
+                errorMessage = angular.copy(data);
+              })
+            }
+
             // Refresh the appointment lists
             DisplayAppointment.appointmentRequest(userEmail, function(data){
               apps = angular.copy(data);
@@ -49,6 +59,7 @@ Controllers
             window.localStorage.removeItem("date");
             window.localStorage.removeItem("doctor");
             window.localStorage.removeItem("time");
+            window.localStorage.removeItem("appSelect");
             
             $ionicHistory.nextViewOptions({
               disableBack: true

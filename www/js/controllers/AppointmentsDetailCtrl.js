@@ -1,6 +1,6 @@
 Controllers
 
-.controller('AppointmentsDetailCtrl', function($scope, $ionicPopup, DeleteAppointment, DisplayAppointment) {
+.controller('AppointmentsDetailCtrl', function($scope, $ionicPopup, $ionicHistory, DeleteAppointment, DisplayAppointment) {
   $scope.appChoosen = JSON.parse(window.localStorage.appSelect);
 
   $scope.editAppoint = function() {
@@ -11,21 +11,26 @@ Controllers
 
     confirmPopup.then(function(res) {
       if(res){
+        $ionicHistory.clearHistory();
         appID = $scope.appChoosen.ID;
         userInfo = JSON.parse(window.localStorage.userInfo);
-        DeleteAppointment.deleteRequest(appID, function(data){
-          // Get the message from server
-          errorMessage = angular.copy(data);
+        // DeleteAppointment.deleteRequest(appID, function(data){
+        //   // Get the message from server
+        //   errorMessage = angular.copy(data);
           
-          //Refresh the appointment lists
-          DisplayAppointment.appointmentRequest(userInfo.Email, function(data){
-            apps = angular.copy(data);
-            window.localStorage.userApp = JSON.stringify(apps);;
-          });
+        //   //Refresh the appointment lists
+        //   DisplayAppointment.appointmentRequest(userInfo.Email, function(data){
 
-          window.localStorage.category = $scope.appChoosen.Category;
-          window.location = "#/tab/status/category/lad";
-        })
+        //     apps = angular.copy(data);
+        //     window.localStorage.userApp = JSON.stringify(apps);
+        //     window.localStorage.category = $scope.appChoosen.Category;
+        //     window.location = "#/tab/status/category/lad";
+        //   });
+
+          
+        // })
+        window.localStorage.category = $scope.appChoosen.Category;
+        window.location = "#/tab/status/category/lad";
       } else{
 
       }
@@ -63,9 +68,6 @@ Controllers
             window.localStorage.userApp = JSON.stringify(apps);
             window.location = "#/tab/appointments";
           });
-
-          
-          //$state.go($state.current, $stateParams, {reload: true});
         })
       } else{
 
