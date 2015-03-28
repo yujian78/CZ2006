@@ -60,10 +60,11 @@ Controllers
           //Refresh the appointment lists
           DisplayAppointment.appointmentRequest(userInfo.Email, function(data){
             apps = angular.copy(data);
-            window.localStorage.userApp = JSON.stringify(apps);;
+            window.localStorage.userApp = JSON.stringify(apps);
+            window.location = "#/tab/appointments";
           });
 
-          window.location = "#/tab/appointments";
+          
           //$state.go($state.current, $stateParams, {reload: true});
         })
       } else{
