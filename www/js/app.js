@@ -70,7 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/status/category/lad',
     views: {
       'tab-status': {
-        templateUrl: 'templates/status-datelocation.html',
+        templateUrl: 'templates/status-locationdate.html',
         controller: 'DateLocationCtrl'
       }
     }
